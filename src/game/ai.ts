@@ -1,8 +1,4 @@
-export interface AiBoard {
-	board: number[];
-	points: number;
-	bank: number;
-}
+import type { GameManager } from "./board";
 
 export interface AiMove {
 	index: number;
@@ -14,7 +10,7 @@ export class Ai {
 		// Initialize the AI
 	}
 
-	evaluate(board: AiBoard): AiMove {
+	evaluate(manager: GameManager): AiMove {
 		// TODO Implement AI logic to evaluate the board and return the best move
 		return { index: 0 };
 	}

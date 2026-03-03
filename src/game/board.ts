@@ -44,11 +44,7 @@ export class GameManager {
 			(this.aiFirst && this.turn % 2 === 1) ||
 			(!this.aiFirst && this.turn % 2 === 0)
 		) {
-			const move = this.ai.evaluate({
-				board: this.board,
-				points: this.points,
-				bank: this.bank,
-			});
+			const move = this.ai.evaluate(this);
 			this.replace(move.index);
 			this.turn++;
 		}
