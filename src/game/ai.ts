@@ -5,13 +5,10 @@ export interface AiMove {
 }
 
 // Pamata AI klase
-export class Ai {
-	constructor() {
-		// Initialize the AI
-	}
+export abstract class Ai {
+	// Kopīga implementācija simulācijām, grafiem, utt. ja nepieciešams
+	constructor() {}
 
-	evaluate(manager: GameManager): AiMove {
-		// TODO Implement AI logic to evaluate the board and return the best move
-		return { index: 0 };
-	}
+	// Saņem spēles stāvokli un atgriež gājienu
+	abstract evaluate(manager: GameManager): AiMove;
 }
