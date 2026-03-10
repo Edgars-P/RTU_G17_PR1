@@ -4,9 +4,31 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pr1</title>
+    <title>Human/AI Game</title>
+
   </head>
   <body>
+    <div class = "root">
+      <h1>Main Settings of the Game</h1>
+
+      <div class = "lengthOfstring">
+        <label>Enter cell count (from 15 to 25):</label>
+        <input type = "number" min = "15" max = "25" id = "CellCount">
+      </div>
+
+      <div class = "ChoosingPlayer">
+        <label>Who will start the game:</label>
+        <label> <input type = "radio" name = "player" value = "1" checked>
+          Player 1
+        </label> <label> <input type = "radio" name = "player" value = "2">
+          Player 2
+        </label>
+      </div>
+
+      <div class = "ChoosingAlgrorithm">
+
+      </div>
+    </div>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
