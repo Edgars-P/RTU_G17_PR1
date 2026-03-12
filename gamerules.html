@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style.css" />
+    <title>Human/AI Game Settings</title>
+  </head>
+  <body>
+
+    <div class="rules">
+  <h1>Please read the rules before you start the game!</h1>
+  <div class = "ruleFirst"><p>Players change from turn to turn</p>
+  </div>
+
+  <div class="ruleRow">
+    <p class="ruleLeft">If two numbers' sum > 7:</p>
+    <p class="ruleRight">Replace with 1 -> you get +1 to total score</p>
+  </div>
+
+  <div class="ruleRow">
+    <p class="ruleLeft">If two numbers'sum < 7:</p>
+    <p class="ruleRight">Replace with 3 -> you get -1 to total score</p>
+  </div>
+
+  <div class="ruleRow">
+    <p class="ruleLeft">If two numbers' sum = 7:</p>
+    <p class="ruleRight">Replace with 2 -> bank gets +1 score</p>
+  </div>
+
+  <div class="backTogame">
+    <a href="./index.html">Back to the Settings</a>
+  </div>
+</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

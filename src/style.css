@@ -6,11 +6,23 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+  text-align: center;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+}
+
+.root {
+  background-color: #4682B4;
+  border-radius: 12px;
+  padding: 50px 40px 80px 40px;
+  max-width: 600px;
+  margin-top: 50px;   
+  margin-bottom: 50px; 
+  margin-left: 500px;   
 }
 
 a {
@@ -28,11 +40,14 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #D3D3D3;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 38px;
   line-height: 1.1;
+  color: #2c2b2b;
+  margin-bottom: 40px;
 }
 
 #app {
@@ -70,9 +85,10 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #191970;
   cursor: pointer;
   transition: border-color 0.25s;
+  text-align: center;
 }
 button:hover {
   border-color: #646cff;
@@ -80,6 +96,206 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 60px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons a {
+  display: block;
+  background-color: #191970;
+  color: white;
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+}
+
+.buttons a:hover {
+  border: 1px solid #646cff;
+}
+
+.lengthOfString,
+.ChoosingPlayer,
+.gameMembers,
+.ChoosingAlgrorithm {
+  margin-bottom: 10px;
+  text-align: center;
+  color: #ffffff;
+}
+
+#cells {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  background-color: #2a5298;
+  padding: 15px 20px;
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.gameField {
+  background-color: #4682B4;
+  border-radius: 12px;
+  padding: 50px 40px 80px 40px;
+  width: 70%;
+  margin: 50px auto;
+}
+
+.Bank {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+}
+
+
+.totalScore {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+}
+
+.turns {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+#currentTurn {
+  color: greenyellow;
+  font-size: 18px;
+}
+
+#nextInline {
+  color: red;
+  font-size: 18px;
+}
+
+.players {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 140px solid #000080;
+}
+
+.playerFigure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.star {
+  font-size: 2em;
+  font-weight: bold;
+ 
+
+}
+
+.Bank {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.buttonGameRules {
+  background-color: #afb348;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  text-align: center;
+  width: 300px;
+  margin: 30px auto 0 auto;
+}
+
+.buttonGameRules a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.buttonGameRules:hover {
+  border: 1px solid #2a5021;
+}
+
+.rules {
+  background-color: #4682B4;
+  border-radius: 12px;
+  padding: 50px 40px 80px 40px;
+  max-width: 600px;
+  margin-top: 50px;   
+  margin-bottom: 50px; 
+  margin-left: 400px;
+}
+.ruleFirst {
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFE4E1;
+}
+
+.ruleRow {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.ruleLeft {
+  width: 250px;
+  text-align: right;
+  color: #FFD700;
+  font-weight: bold;
+}
+
+.ruleRight {
+  flex: 1;
+  text-align: left;
+  color: white;
+}
+
+.backTogame {
+  background-color: #396675;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  text-align: center;
+  width: 300px;
+  margin: 30px auto 0 auto;
+}
+
+.backTogame a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.backTogame:hover {
+  border: 1px solid #2a5021;
 }
 
 @media (prefers-color-scheme: light) {

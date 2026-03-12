@@ -4,16 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Human/AI Game</title>
-
+    <link rel="stylesheet" href="src/style.css" />
+    <title>Human/AI Game Settings</title>
   </head>
   <body>
     <div class = "root">
       <h1>Main Settings of the Game</h1>
 
-      <div class = "lengthOfstring">
-        <label>Enter cell count (from 15 to 25):</label>
-        <input type = "number" min = "15" max = "25" id = "CellCount">
+      <div class="lengthOfString">
+        <label>Cell Count</label> <div class="slider">
+          <span class="minValue">15</span>
+          <input type="range" id="cell" min="15" max = "25" value = "15" oninput="cellValue.textContent = this.value"/>
+          <span class="maxValue">25</span>
+        </div>
+        <div class="sliderValue" id="cellValue"></div>
       </div>
 
       <div class = "ChoosingPlayer">
@@ -25,11 +29,50 @@
         </label>
       </div>
 
-      <div class = "ChoosingAlgrorithm">
-
+      <div class = "gameMembers">
+        <label>Members of the Game:</label>
+        <label> <input type = "radio" name = "member" value = "1" checked>
+          Human vs Human
+        </label> <label> <input type = "radio" name = "member" value = "2">
+          Human vs AI
+        </label>
       </div>
+
+      <div class = "ChoosingAlgrorithm" style="display:none;">
+        <label>Choose the Algorithm:</label>
+        <label> <input type = "radio" name = "algorithm" value = "1" checked>
+          Minimax
+        </label> <label> <input type = "radio" name = "algorithm" value = "2">
+          Alfa-Beta
+        </label>
+      </div>
+
+      <div class = "buttons">
+        <button type = "button">Save changes</button>
+        <a id="startButton" href="#">Start game</a>
+      </div>
+
+      <div class = "buttonGameRules">
+        <a href = "./gamerules.html">Open to read the rules of the game</a>
+      </div>
+
     </div>
+
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+
+    <script>
+      startButton.onclick = () => location.href = "./indexgame.html?cells=" + cell.value;
+    </script>
+
+    <script>
+      document.querySelectorAll('[name=member]').forEach(r => {
+        r.addEventListener('change', () => {
+          document.querySelector('.ChoosingAlgrorithm').style.display = 
+          r.value === '2' ? 'block' : 'none';
+        });
+      });
+    </script>
+
   </body>
 </html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style.css" />
+    <title>Human/AI Game</title>
+  </head>
+  <body>
+    <div class="gameField">
+        <h1>Welcome to the game!</h1>
+        <h2>Generated string:</h2>
+        <div id="cells"></div>
+
+        <div class="Bank">
+          Bank: <span id="bankScore">0</span>
+        </div> 
+
+        <div class="totalScore">
+          Total score: <span id="totalScore">0</span>
+        </div>
+
+        <div class="players">
+          <div class="playerFigure">
+            <span class = "star" id = "startFirst">*</span>
+            <div class="triangle"></div>
+            <p>Player 1</p>
+          </div>
+
+          <div class="playerFigure">
+            <span class = "star" id = "startSecond">*</span>
+            <div class="triangle"></div>
+            <p>Player 2</p>
+          </div>
+        </div>
+
+        <div class="turns">
+          <p>Current turn: <span id="currentTurn">*</span></p>
+          <p>Next in line: <span id="nextInline">*</span></p>
+        </div>
+
+        <div class="buttons">
+          <a href="./index.html">New game</a>
+        </div>
+
+      </div>
+
+<script>
+  const count = parseInt(new URLSearchParams(location.search).get("cells")) || 15;
+
+  for (let i = 0; i < count; i++) {
+    const div = document.createElement("div");
+    div.className = "cell";
+    div.textContent = Math.ceil(Math.random() * 9);
+    document.getElementById("cells").appendChild(div);
+  }
+</script>
+    
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
