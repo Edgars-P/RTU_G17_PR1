@@ -19,7 +19,7 @@ export class GameManager {
 		this.boardLength = length;
 		this.board = new Array(length)
 			.fill(0)
-			.map(() => Math.floor(Math.random() * 10));
+			.map(() => Math.floor(Math.random() * 9) + 1);
 		this.points = 0;
 		this.bank = 0;
 		this.turn = 1;
@@ -46,7 +46,6 @@ export class GameManager {
 		) {
 			const move = this.ai.evaluate(this);
 			this.replace(move.index);
-			this.turn++;
 		}
 	}
 
