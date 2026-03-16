@@ -25,12 +25,12 @@ function minmaxNode(node: TreeNode, stats: { evaluated: number }): number {
 	const endState = node.manager.isEnd();
 
 	if (endState === "AI_WIN") {
-		node.score = -1000;
+		node.score = 1000;
 		return node.score;
 	}
 
 	if (endState === "USER_WIN") {
-		node.score = 1000;
+		node.score = -1000;
 		return node.score;
 	}
 
