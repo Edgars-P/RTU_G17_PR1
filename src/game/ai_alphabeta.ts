@@ -1,15 +1,8 @@
 import { Ai, type AiMove } from "./ai";
 import type { GameManager } from "./board";
+import { buildGameTree, countNodes, type TreeNode } from "./tree";
 
 const MAX_DEPTH = 5; // maksimālais dziļums, līdz kuram izpilda AlphaBeta algoritmu
-
-/**
- * Eksperimentu statistika, kura glabā ģenerēto un novērtēto mezglu skaitu
- */
-type SearchStats = {
-	generated: number;
-	evaluated: number;
-}
 
 /**
  * Funkcija, kas nosaka, vai tagad ir MI gājiens
@@ -45,55 +38,73 @@ function terminalScore(manager: GameManager, depth: number): number | null {
 	return null;
 }
 
-function alphaBeta(
-	manager: GameManager,
+function alphaBetaNode(
+	node: TreeNode,
 	depth: number,
 	alpha: number,
 	beta: number,
-	stats: SearchStats
+	stats: { evaluated: number }
 ): number {
 	/* 	katru reizi, kad izsauc alphaBeta(), skaitām, ka
 		šo virsotni esam novērtējuši */
 	stats.evaluated++;
 
-	const end = terminalScore(manager, depth);
-	if (end !== null) return end;
+	node.alpha = alpha;
+	node.beta = beta;
 
-	if (depth === 0) return heuristic(manager);
+	const end = terminalScore(node.manager, depth);
+	if (end !== null) {
+		node.score = end;
+		return node.score;
+	}
 
-	if (isAiTurn(manager)) {
+	if (node.children.length === 0) {
+		node.score = heuristic(node.manager);
+		return node.score;
+	}
+
+	if (isAiTurn(node.manager)) {
 		let value = -Infinity;
-		for (let i = 0; i < manager.boardLength - 1; i++) {
-			const simulator = manager.clone();
-			simulator.replace(i);
+		for (const child of node.children) {
+			const score = alphaBetaNode(child, depth - 1, alpha, beta, stats);
 
-			/* 	katru reizi, kad izveidojam jaunu simulatoru, skaitām, ka
-				esam ģenerējuši jaunu mezglu */
-			stats.generated++;
-
-			const score = alphaBeta(simulator, depth - 1, alpha, beta, stats);
 			value = Math.max(value, score);
-
 			alpha = Math.max(alpha, value);
-			if (alpha >= beta) break;
+
+			/* alpha-beta nogriešana */
+			if (alpha >= beta) {
+				const currentIndex = node.children.indexOf(child);
+
+				for (let i = currentIndex + 1; i < node.children.length; i++) {
+					node.children[i].pruned = true;
+				}
+
+				break;
+			}
 		}
 
+		node.score = value;
 		return value;
 	} else {
 		let value = Infinity;
-		for (let i = 0; i < manager.boardLength - 1; i++) {
-			const simulator = manager.clone();
-			simulator.replace(i);
+		for (const child of node.children) {
+			const score = alphaBetaNode(child, depth - 1, alpha, beta, stats);
 
-			stats.generated++;
-
-			const score = alphaBeta(simulator, depth - 1, alpha, beta, stats);
 			value = Math.min(value, score);
-			
 			beta = Math.min(beta, value);
-			if (beta <= alpha) break;
+
+			if (beta <= alpha) {
+				const currentIndex = node.children.indexOf(child);
+
+				for (let i = currentIndex + 1; i < node.children.length; i++) {
+					node.children[i].pruned = true;
+				}
+
+				break;
+			}
 		}
 
+		node.score = value;
 		return value;
 	}
 }
@@ -104,9 +115,12 @@ export class AiAlphaBeta extends Ai {
 	lastMoveTime = 0;
 
 	evaluate(manager: GameManager): AiMove {
-		const stats: SearchStats = { generated: 0, evaluated: 0 };
-
 		const startTime = performance.now();
+
+		const root = buildGameTree(manager, MAX_DEPTH);
+		this.lastTree = root;
+
+		const stats = { evaluated: 0 };
 
 		let bestIndex = 0;
 		let bestScore = -Infinity;
@@ -114,25 +128,19 @@ export class AiAlphaBeta extends Ai {
 		let alpha = -Infinity;
 		let beta = Infinity;
 
-		for (let i = 0; i < manager.boardLength - 1; i++) {
-			const simulator = manager.clone();
-			simulator.replace(i);
-
-			stats.generated++;
-
-			const score = alphaBeta(simulator, MAX_DEPTH - 1, alpha, beta, stats);
+		for (const child of root.children) {
+			const score = alphaBetaNode(child, MAX_DEPTH - 1, alpha, beta, stats);
 
 			if (score > bestScore) {
 				bestScore = score;
-				bestIndex = i;
+				bestIndex = child.moveIndex ?? 0;
 			}
 
 			alpha = Math.max(alpha, bestScore);
 		}
 
-		this.generatedNodes = stats.generated;
+		this.generatedNodes = countNodes(root) - 1;		// skaitām bez saknes
 		this.evaluatedNodes = stats.evaluated;
-
 		this.lastMoveTime = performance.now() - startTime;
 
 		console.log(

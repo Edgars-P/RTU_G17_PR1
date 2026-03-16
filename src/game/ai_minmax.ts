@@ -1,5 +1,6 @@
 import { Ai, type AiMove } from "./ai";
 import type { GameManager } from "./board";
+import { buildGameTree, countNodes, type TreeNode } from "./tree";
 
 const MAX_DEPTH = 5; // Maksimālais dziļums, līdz kuram MinMax algoritms tiks izpildīts
 
@@ -18,60 +19,88 @@ function heuristic(manager: GameManager): number {
 	return favorAi * (pointsGood + bankGood) * 10;
 }
 // MinMax algoritms
-function minmax(manager: GameManager, depth: number, nodes: { count: number }): number {
-	nodes.count++;
+function minmaxNode(node: TreeNode, stats: { evaluated: number }): number {
+	stats.evaluated++;
 
-	const endState = manager.isEnd();
-	if (endState === "AI_WIN") return 1000;
-	if (endState === "USER_WIN") return -1000;
-	if (endState === "DRAW") return 0;
+	const endState = node.manager.isEnd();
 
-	if (depth === 0) return heuristic(manager);
+	if (endState === "AI_WIN") {
+		node.score = -1000;
+		return node.score;
+	}
 
-	if (isAiTurn(manager)) {
+	if (endState === "USER_WIN") {
+		node.score = 1000;
+		return node.score;
+	}
+
+	if (endState === "DRAW") {
+		node.score = 0;
+		return node.score;
+	}
+
+	/**
+	 * Ja mezglam nav bērnu, sasniegts dziļuma limits vai
+	 * mezgls ir strupceļa stāvoklis daļējā kokā
+	 */
+	if (node.children.length === 0) {
+		node.score = heuristic(node.manager);
+		return node.score;
+	}
+
+	if (isAiTurn(node.manager)) {
 		let best = -Infinity;
-		for (let i = 0; i < manager.boardLength - 1; i++) {
-			const sim = manager.clone();
-			sim.replace(i);
-			best = Math.max(best, minmax(sim, depth - 1, nodes));
+
+		for (const child of node.children) {
+			best = Math.max(best, minmaxNode(child, stats));
 		}
-		return best;
+
+		node.score = best;
+		return node.score;
 	} else {
 		let best = Infinity;
-		for (let i = 0; i < manager.boardLength - 1; i++) {
-			const sim = manager.clone();
-			sim.replace(i);
-			best = Math.min(best, minmax(sim, depth - 1, nodes));
+
+		for (const child of node.children) {
+			best = Math.min(best, minmaxNode(child, stats));
 		}
-		return best;
+
+		node.score = best;
+		return node.score;
 	}
 }
 
 export class AiMinMax extends Ai {
-	nodes = 0;
+	generatedNodes = 0;
+	evaluatedNodes = 0;
 	lastMoveTime = 0;
-    evaluate(manager: GameManager): AiMove {
-        const nodes = { count: 0 };
-        let bestScore = -Infinity;
-        let bestIndex = 0;
 
+    evaluate(manager: GameManager): AiMove {
         const start = performance.now();
 
-        for (let i = 0; i < manager.boardLength - 1; i++) {
-            const sim = manager.clone();
-            sim.replace(i);
-            const score = minmax(sim, MAX_DEPTH - 1, nodes);
-            if (score > bestScore) {
+		const root = buildGameTree(manager, MAX_DEPTH);
+		this.lastTree = root;
+
+		const stats = { evaluated: 0 };
+
+		let bestScore = -Infinity;
+		let bestIndex = 0;
+
+
+        for (const child of root.children) {
+            const score = minmaxNode(child, stats);
+            
+			if (score > bestScore) {
                 bestScore = score;
-                bestIndex = i;
+                bestIndex = child.moveIndex ?? 0;
             }
         }
 
+		this.generatedNodes = countNodes(root) - 1;		// skaitām bez saknes
+		this.evaluatedNodes = stats.evaluated;
         this.lastMoveTime = performance.now() - start;
-        this.nodes = nodes.count;
 
 		// Izvada informāciju par izpildes laiku un apmeklēto virsotņu skaitu
-        console.log("MinMax virsotnes:", this.nodes, "laiks:", this.lastMoveTime.toFixed(2), "ms");	
+        console.log("MinMax apmeklētās/novērtētās virsotnes:", this.evaluatedNodes, "laiks:", this.lastMoveTime.toFixed(2), "ms");	
         return { index: bestIndex };
     }
 }
