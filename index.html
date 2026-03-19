@@ -22,33 +22,29 @@
 
       <div class = "ChoosingPlayer">
         <label>Who will start the game:</label>
-        <label> <input type = "radio" name = "player" value = "1" checked>
-          Player 1
-        </label> <label> <input type = "radio" name = "player" value = "2">
-          Player 2
+        <label>
+          <input type = "radio" name = "starter" value = "human" checked>
+          Human
+        </label>
+        <label>
+          <input type = "radio" name = "starter" value = "ai">
+            Computer
         </label>
       </div>
 
-      <div class = "gameMembers">
-        <label>Members of the Game:</label>
-        <label> <input type = "radio" name = "member" value = "1" checked>
-          Human vs Human
-        </label> <label> <input type = "radio" name = "member" value = "2">
-          Human vs AI
-        </label>
-      </div>
-
-      <div class = "ChoosingAlgrorithm" style="display:none;">
+      <div class = "ChoosingAlgrorithm">
         <label>Choose the Algorithm:</label>
-        <label> <input type = "radio" name = "algorithm" value = "1" checked>
+        <label>
+          <input type = "radio" name = "algorithm" value = "minimax" checked>
           Minimax
-        </label> <label> <input type = "radio" name = "algorithm" value = "2">
-          Alfa-Beta
+        </label>
+        <label>
+          <input type = "radio" name = "algorithm" value = "alphabeta">
+          Alpha-Beta
         </label>
       </div>
 
       <div class = "buttons">
-        <button type = "button">Save changes</button>
         <a id="startButton" href="#">Start game</a>
       </div>
 
@@ -66,12 +62,23 @@
     </script>
 
     <script>
-      document.querySelectorAll('[name=member]').forEach(r => {
-        r.addEventListener('change', () => {
-          document.querySelector('.ChoosingAlgrorithm').style.display = 
-          r.value === '2' ? 'block' : 'none';
-        });
+      const cell = document.getElementById("cell");
+      const cellValue = document.getElementById("cellValue");
+      const startButton = document.getElementById("startButton");
+
+      cell.addEventListener("input", () => {
+        cellValue.textContent = cell.value;
       });
+
+      startButton.onclick = (event) => {
+        event.preventDefault();
+
+        const cells = cell.value;
+        const starter = document.querySelector('input[name="starter"]:checked').value;
+        const algorithm = document.querySelector('input[name="algorithm"]:checked').value;
+
+        location.href = `./indexgame.html?cells=${cells}&starter=${starter}&algorithm=${algorithm}`;
+      }
     </script>
 
   </body>

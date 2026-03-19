@@ -50,7 +50,7 @@ export class GameManager {
 	}
 
 	remove(index: number) {
-		if (index < 0 || index > this.boardLength) {
+		if (index < 0 || index >= this.boardLength) {
 			throw new Error("Nepareizs index!");
 		}
 		// Izdzēš index
@@ -64,7 +64,7 @@ export class GameManager {
 	// Izvēlas skaitļus kurus aizvietos
 	// Gan lietotājs, gan AI izmanto šo funkciju
 	replace(index: number) {
-		if (index < 0 || index > this.boardLength) {
+		if (index < 0 || index >= this.boardLength) {
 			throw new Error("Nepareizs index!");
 		}
 
@@ -91,9 +91,9 @@ export class GameManager {
 	// Pārbauda vai ir spēles beigas
 	isEnd(): false | EndStates {
 		if (this.boardLength <= 1) {
-			if (this.bank % 2 == 0 && this.points % 2 == 0) {
+			if (this.bank % 2 === 0 && this.points % 2 === 0) {
 				return this.aiFirst ? "AI_WIN" : "USER_WIN";
-			} else if (this.bank % 2 == 1 && this.points % 2 == 1) {
+			} else if (this.bank % 2 !== 0 && this.points % 2 !== 0) {
 				return this.aiFirst ? "USER_WIN" : "AI_WIN";
 			} else {
 				return "DRAW";
