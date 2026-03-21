@@ -56,8 +56,11 @@ function initGamePage() {
     currentTurnEl.textContent = currentPlayerLabel();
     nextInlineEl.textContent = nextPlayerLabel();
 
-    startFirstEl.textContent = manager.aiFirst ? "" : "*";
-    startSecondEl.textContent = manager.aiFirst ? "*" : "";
+    const humanTurn = !isAiTurn();
+    startFirstEl.textContent = humanTurn ? "*" : "";
+    startSecondEl.textContent = !humanTurn ? "*" : "";
+    startFirstEl.style.color = humanTurn ? "greenyellow" : "white";
+    startSecondEl.style.color = !humanTurn ? "greenyellow" : "white";
   }
 
   function renderBoard() {

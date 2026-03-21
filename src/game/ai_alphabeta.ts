@@ -2,7 +2,7 @@ import { Ai, type AiMove } from "./ai";
 import type { GameManager } from "./board";
 import { buildGameTree, countNodes, type TreeNode } from "./tree";
 
-const MAX_DEPTH = 5; // maksimālais dziļums, līdz kuram izpilda AlphaBeta algoritmu
+const MAX_DEPTH = 4; // maksimālais dziļums, līdz kuram izpilda AlphaBeta algoritmu
 
 /**
  * Funkcija, kas nosaka, vai tagad ir MI gājiens
