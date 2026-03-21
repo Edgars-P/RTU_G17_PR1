@@ -2,7 +2,7 @@ import { Ai, type AiMove } from "./ai";
 import type { GameManager } from "./board";
 import { buildGameTree, countNodes, type TreeNode } from "./tree";
 
-const MAX_DEPTH = 5; // Maksimālais dziļums, līdz kuram MinMax algoritms tiks izpildīts
+const MAX_DEPTH = 4; // Maksimālais dziļums, līdz kuram MinMax algoritms tiks izpildīts
 
 // Funkcija, kas nosaka, vai tagad ir MI gājiens
 function isAiTurn(manager: GameManager): boolean {
