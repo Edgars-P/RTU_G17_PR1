@@ -22,18 +22,23 @@ function initGamePage() {
     params.get("algorithm") === "alphabeta" ? "alphabeta" : "minimax";
 
   const aiFirst = starter === "ai";
-  const ai =
-    algorithm === "alphabeta" ? new AiAlphaBeta() : new AiMinMax();
+  const ai = algorithm === "alphabeta" ? new AiAlphaBeta() : new AiMinMax();
 
   const manager = new GameManager(cells, aiFirst, ai);
 
   const bankScoreEl = document.getElementById("bankScore") as HTMLSpanElement;
   const totalScoreEl = document.getElementById("totalScore") as HTMLSpanElement;
-  const currentTurnEl = document.getElementById("currentTurn") as HTMLSpanElement;
+  const currentTurnEl = document.getElementById(
+    "currentTurn",
+  ) as HTMLSpanElement;
   const nextInlineEl = document.getElementById("nextInline") as HTMLSpanElement;
   const startFirstEl = document.getElementById("startFirst") as HTMLSpanElement;
-  const startSecondEl = document.getElementById("startSecond") as HTMLSpanElement;
-  const gameMessageEl = document.getElementById("gameMessage") as HTMLParagraphElement;
+  const startSecondEl = document.getElementById(
+    "startSecond",
+  ) as HTMLSpanElement;
+  const gameMessageEl = document.getElementById(
+    "gameMessage",
+  ) as HTMLParagraphElement;
 
   function isAiTurn(): boolean {
     return (
@@ -64,7 +69,7 @@ function initGamePage() {
   }
 
   function renderBoard() {
-    boardEl.innerHTML = "";
+    boardEl!.innerHTML = "";
 
     manager.board.forEach((num, index) => {
       const cellBtn = document.createElement("button");
@@ -100,7 +105,7 @@ function initGamePage() {
         }
       });
 
-      boardEl.appendChild(cellBtn);
+      boardEl!.appendChild(cellBtn);
     });
   }
 
