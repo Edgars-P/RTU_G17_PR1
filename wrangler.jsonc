@@ -3,12 +3,14 @@
   "name": "rtu-g17-pr1",
   "compatibility_date": "2025-09-27",
   "observability": {
+
     "enabled": true
   },
   "assets": {
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "404-page"
   },
   "compatibility_flags": [
     "nodejs_compat"
   ]
+
 }
