@@ -1,12 +1,15 @@
-:root {
+html {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
     text-align: center;
+
+    background: url("/bg.webp");
+    background-position: center;
+    background-size: cover;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -15,7 +18,8 @@
 }
 
 .root {
-    background-color: #4682b4;
+    background-color: #00113366;
+    backdrop-filter: blur(5px);
     border-radius: 12px;
     padding: 50px 40px 80px 40px;
     max-width: 600px;
@@ -39,14 +43,14 @@ body {
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
-    background-color: #d3d3d3;
 }
 
 h1 {
     font-size: 38px;
     line-height: 1.1;
-    color: #2c2b2b;
+    color: #000;
     margin-bottom: 40px;
+    margin-top: 0;
 }
 
 #app {
@@ -117,6 +121,7 @@ button:focus-visible {
     font-weight: 500;
     cursor: pointer;
     text-align: center;
+    border: 1px solid transparent;
 }
 
 .buttons a:hover {
@@ -137,7 +142,7 @@ button:focus-visible {
     flex-direction: row;
     gap: 10px;
     justify-content: center;
-    background-color: #2a5298;
+    background-color: #2a529877;
     padding: 15px 20px;
     border-radius: 12px;
     flex-wrap: wrap;
@@ -152,22 +157,27 @@ button:focus-visible {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: #fff;
     color: black;
     font-weight: 900;
     font-size: 2rem;
     position: relative;
 }
 
-.cell:hover:before {
+.cell:before {
     content: "";
     display: block;
     position: absolute;
-    width: 90px;
-    height: 40px;
+    width: 88px;
+    height: 37px;
     left: 0;
     top: 0;
-    background: #fff5;
+    border-radius: 20px;
+}
+
+.cell:hover:before {
+    background: linear-gradient(90deg, #fff0, #fff5, #fff);
+    pointer-events: initial;
 }
 
 .cell:last-child {
@@ -175,7 +185,8 @@ button:focus-visible {
 }
 
 .gameField {
-    background-color: #4682b4;
+    background-color: #00113366;
+    backdrop-filter: blur(5px);
     border-radius: 12px;
     padding: 50px 40px 80px 40px;
     width: 70%;
@@ -247,6 +258,7 @@ button:focus-visible {
     text-align: center;
     width: 300px;
     margin: 30px auto 0 auto;
+    border: 1px solid transparent;
 }
 
 .buttonGameRules a {
@@ -301,6 +313,7 @@ button:focus-visible {
     text-align: center;
     width: 300px;
     margin: 30px auto 0 auto;
+    border: 1px solid transparent;
 }
 
 .backTogame a {
@@ -318,17 +331,4 @@ button:focus-visible {
     font-weight: bold;
     color: #000000;
     font-size: 28px;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-    a:hover {
-        color: #747bff;
-    }
-    button {
-        background-color: #f9f9f9;
-    }
 }

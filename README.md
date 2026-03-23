@@ -58,3 +58,6 @@ Tādējādi, izstrādājot darbu, studējošo komandai ir jāizpilda šādi soļ
 - [ ] jāveic komandas dalībnieku savstarpējā vērtēšana;
 - [ ] jāpiesakās aizstāvēšanas laikam;
 - [ ] jāaizstāv izstrādātais darbs.
+
+
+Photo by <a href="https://unsplash.com/@pawel_czerwinski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Pawel Czerwinski</a> on <a href="https://unsplash.com/photos/abstract-background-of-white-vertical-bars-uA5mG5kyazI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
