@@ -1,85 +1,101 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="src/style.css" />
-    <title>Human/AI Game Settings</title>
-  </head>
-  <body>
-    <div class = "root">
-      <h1>Main Settings of the Game</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="src/style.css" />
+        <title>Human/AI Game Settings</title>
+    </head>
+    <body>
+        <div class="root">
+            <h1>Main Settings of the Game</h1>
 
-      <div class="lengthOfString">
-        <label>Cell Count</label> <div class="slider">
-          <span class="minValue">15</span>
-          <input type="range" id="cell" min="15" max = "25" value = "15" oninput="cellValue.textContent = this.value"/>
-          <span class="maxValue">25</span>
+            <div class="lengthOfString">
+                <label>Cell Count</label>
+                <div class="slider">
+                    <span class="minValue">15</span>
+                    <input
+                        type="range"
+                        id="cell"
+                        min="15"
+                        max="25"
+                        value="15"
+                        oninput="cellValue.textContent = this.value"
+                    />
+                    <span class="maxValue">25</span>
+                </div>
+                <div class="sliderValue" id="cellValue"></div>
+            </div>
+
+            <div class="ChoosingPlayer">
+                <label>Who will start the game:</label>
+                <label>
+                    <input type="radio" name="starter" value="human" checked />
+                    Human
+                </label>
+                <label>
+                    <input type="radio" name="starter" value="ai" />
+                    Computer
+                </label>
+            </div>
+
+            <div class="ChoosingAlgrorithm">
+                <label>Choose the Algorithm:</label>
+                <label>
+                    <input
+                        type="radio"
+                        name="algorithm"
+                        value="minimax"
+                        checked
+                    />
+                    Minimax
+                </label>
+                <label>
+                    <input type="radio" name="algorithm" value="alphabeta" />
+                    Alpha-Beta
+                </label>
+            </div>
+
+            <div class="buttons">
+                <a id="startButton" href="#">Start game</a>
+            </div>
+
+            <div class="buttonGameRules">
+                <a href="./gamerules/">Open to read the rules of the game</a>
+            </div>
         </div>
-        <div class="sliderValue" id="cellValue"></div>
-      </div>
 
-      <div class = "ChoosingPlayer">
-        <label>Who will start the game:</label>
-        <label>
-          <input type = "radio" name = "starter" value = "human" checked>
-          Human
-        </label>
-        <label>
-          <input type = "radio" name = "starter" value = "ai">
-            Computer
-        </label>
-      </div>
+        <div id="app"></div>
+        <script type="module" src="/src/main.ts"></script>
 
-      <div class = "ChoosingAlgrorithm">
-        <label>Choose the Algorithm:</label>
-        <label>
-          <input type = "radio" name = "algorithm" value = "minimax" checked>
-          Minimax
-        </label>
-        <label>
-          <input type = "radio" name = "algorithm" value = "alphabeta">
-          Alpha-Beta
-        </label>
-      </div>
+        <script>
+            startButton.onclick = () =>
+                (location.href = "./game/?cells=" + cell.value);
+        </script>
 
-      <div class = "buttons">
-        <a id="startButton" href="#">Start game</a>
-      </div>
+        <script>
+            const cell = document.getElementById("cell");
+            const cellValue = document.getElementById("cellValue");
+            const startButton = document.getElementById("startButton");
 
-      <div class = "buttonGameRules">
-        <a href = "./gamerules.html">Open to read the rules of the game</a>
-      </div>
+            cell.addEventListener("input", () => {
+                cellValue.textContent = cell.value;
+            });
 
-    </div>
+            startButton.onclick = (event) => {
+                event.preventDefault();
 
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+                const cells = cell.value;
+                const starter = document.querySelector(
+                    'input[name="starter"]:checked',
+                ).value;
+                const algorithm = document.querySelector(
+                    'input[name="algorithm"]:checked',
+                ).value;
 
-    <script>
-      startButton.onclick = () => location.href = "./indexgame.html?cells=" + cell.value;
-    </script>
-
-    <script>
-      const cell = document.getElementById("cell");
-      const cellValue = document.getElementById("cellValue");
-      const startButton = document.getElementById("startButton");
-
-      cell.addEventListener("input", () => {
-        cellValue.textContent = cell.value;
-      });
-
-      startButton.onclick = (event) => {
-        event.preventDefault();
-
-        const cells = cell.value;
-        const starter = document.querySelector('input[name="starter"]:checked').value;
-        const algorithm = document.querySelector('input[name="algorithm"]:checked').value;
-
-        location.href = `./indexgame.html?cells=${cells}&starter=${starter}&algorithm=${algorithm}`;
-      }
-    </script>
-
-  </body>
+                location.href = `./game/?cells=${cells}&starter=${starter}&algorithm=${algorithm}`;
+            };
+        </script>
+    </body>
 </html>

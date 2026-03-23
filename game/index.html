@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../src/style.css" />
+        <title>Human/AI Game</title>
+    </head>
+    <body>
+        <div class="gameField">
+            <h1>Welcome to the game!</h1>
+            <h2>Generated string:</h2>
+            <div id="cells"></div>
+
+            <div class="Bank">Bank: <span id="bankScore">0</span></div>
+
+            <div class="totalScore">
+                Total score: <span id="totalScore">0</span>
+            </div>
+
+            <div class="players">
+                <div class="playerFigure">
+                    <span class="star" id="startFirst">*</span>
+                    <div class="triangle"></div>
+                    <p>Human</p>
+                </div>
+
+                <div class="playerFigure">
+                    <span class="star" id="startSecond">*</span>
+                    <div class="triangle"></div>
+                    <p>Computer</p>
+                </div>
+            </div>
+
+            <div class="turns">
+                <p>Current turn: <span id="currentTurn">–</span></p>
+                <p>Next in line: <span id="nextInline">–</span></p>
+            </div>
+
+            <p id="gameMessage"></p>
+
+            <div class="buttons">
+                <a href="./index.html">New game</a>
+            </div>
+        </div>
+
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>
